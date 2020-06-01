@@ -8,10 +8,18 @@ import java.sql.Statement;
 
 public class DatabaseConnection {
 
+	private String user;
+	private String password;
 	private Connection connection;
 
 	public DatabaseConnection(String user, String password) throws SQLException {
-		connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/ims", user, password);
+		this.user = user;
+		this.password = password;
+		openConnection();
+	}
+	
+	private void openConnection() throws SQLException {
+		connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/ims", user, password);		
 	}
 
 	public void closeConnection() throws SQLException {
