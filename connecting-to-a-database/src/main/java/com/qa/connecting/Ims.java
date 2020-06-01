@@ -21,8 +21,9 @@ public class Ims {
 		DatabaseConnection connection = new DatabaseConnection(user, password);
 
 		
-		
-		
+		// Below needs to be similar to Garage project
+		// where different type of objects can be built and different inputs are required
+		// --------------------------
 		System.out.println("customer name:");
 		String name = input.getInput();
 
@@ -33,11 +34,13 @@ public class Ims {
 		String address = input.getInput();
 
 		Customer customer = new Customer(name, email, address);
-
+		// ----------------------------
+		
+		// With the object send it to the Dao and have it do the rest
 		CustomerDao customerDao = new CustomerDao(connection);
 		customerDao.insertCustomer(customer);
 		
-		
+		// DONT FORGET TO CLOSE OFF CONNECTIONS
 		connection.closeConnection();
 	}
 }
