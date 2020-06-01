@@ -36,5 +36,8 @@ public class Ims {
 
 		CustomerDao customerDao = new CustomerDao(connection);
 		customerDao.insertCustomer(customer);
+		
+		
+		connection.closeConnection();
 	}
 }
