@@ -3,6 +3,8 @@ package com.qa.connecting.dao;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+import com.qa.connecting.exceptions.ConnectionNotMadeException;
+
 public class ShaniConnection extends DatabaseConnection{
 
 	public ShaniConnection(String username, String password) {
@@ -17,6 +19,8 @@ public class ShaniConnection extends DatabaseConnection{
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			throw new ConnectionNotMadeException("Shani has blocked you: " + e.getMessage());
+
 		}
 	}
 

@@ -6,9 +6,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import com.qa.connecting.exceptions.ConnectionNotMadeException;
+
 public class LocalDatabaseConnection  extends DatabaseConnection{
 
-	public LocalDatabaseConnection(String user, String password) throws SQLException {
+	public LocalDatabaseConnection(String user, String password) {
 		super(user, password);
 	}
 	
@@ -19,6 +21,7 @@ public class LocalDatabaseConnection  extends DatabaseConnection{
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			throw new ConnectionNotMadeException("Local database is not accessible: " + e.getMessage());
 		}		
 	}
 
