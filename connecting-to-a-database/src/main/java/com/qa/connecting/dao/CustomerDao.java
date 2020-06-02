@@ -8,11 +8,11 @@ public class CustomerDao {
 
 	private DatabaseConnection databaseConnection;
 
-	public CustomerDao(DatabaseConnection databaseConnection) throws SQLException {
+	public CustomerDao(DatabaseConnection databaseConnection) {
 		this.databaseConnection = databaseConnection;
 	}
 
-	public void insertCustomer(Customer customer) throws SQLException {
+	public void insertCustomer(Customer customer) {
 		String sql = "insert into customers(name, email, address) values ('" + customer.getName() + "', '"
 				+ customer.getEmail() + "', '" + customer.getAddress() + "');";
 

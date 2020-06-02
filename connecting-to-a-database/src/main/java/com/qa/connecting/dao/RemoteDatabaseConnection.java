@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import com.qa.connecting.exceptions.ConnectionNotMadeException;
+
 public class RemoteDatabaseConnection extends DatabaseConnection {
 
 
@@ -20,6 +22,8 @@ public class RemoteDatabaseConnection extends DatabaseConnection {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			throw new ConnectionNotMadeException("Remote database is not accessible: " + e.getMessage());
+
 		}		
 	}
 

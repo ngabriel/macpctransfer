@@ -12,15 +12,16 @@ public class Ims {
 
 	Input input = new Input();
 
-	public void start() throws SQLException {
+	public void start() {
 
 		System.out.println("Database username: ");
 		String user = input.getInput();
 		System.out.println("Database password: ");
 		String password = input.getInput();
 
-//		LocalDatabaseConnection connection = new LocalDatabaseConnection(user, password);
-		ShaniConnection connection = new ShaniConnection(user, password);
+		LocalDatabaseConnection connection = new LocalDatabaseConnection(user, password);
+//		ShaniConnection connection = new ShaniConnection(user, password);
+		
 		// Below needs to be similar to Garage project
 		// where different type of objects can be built and different inputs are required
 		// --------------------------

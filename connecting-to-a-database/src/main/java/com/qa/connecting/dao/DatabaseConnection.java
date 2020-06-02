@@ -5,7 +5,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public abstract class DatabaseConnection implements Connectable {
+import com.qa.connecting.exceptions.ConnectionNotMadeException;
+import com.qa.connecting.exceptions.SqlStatementNotUnderstoodException;
+
+public abstract class DatabaseConnection implements Openable, Closable, Queryable {
 
 	private Connection connection;
 	private String username;
@@ -21,26 +24,34 @@ public abstract class DatabaseConnection implements Connectable {
 	
 	
 	public void closeConnection() {
-		// COme back for when exceptions are covered!
 		try {
 			connection.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			throw new ConnectionNotMadeException("Could not close connection");
 		}
 	}
 
-	public ResultSet sendQuery(String sql) throws SQLException {
-		Statement statement = connection.createStatement();
-		ResultSet resultSet = statement.executeQuery(sql);
-		statement.close();
-		return resultSet;
+	public ResultSet sendQuery(String sql) {
+		try {
+			Statement statement = connection.createStatement();			
+			ResultSet resultSet = statement.executeQuery(sql);
+			statement.close();
+			return resultSet;
+		} catch (SQLException e) {
+			throw new SqlStatementNotUnderstoodException("Could not query with " + sql);
+		}
 	}
 	
-	public void sendUpdate(String sql) throws SQLException {
-		Statement statement = connection.createStatement();
-		statement.executeUpdate(sql);
-		statement.close();
+	public void sendUpdate(String sql) {
+		try {
+			Statement statement = connection.createStatement();
+			statement.executeUpdate(sql);
+			statement.close();			
+		} catch (SQLException e) {
+			throw new SqlStatementNotUnderstoodException("Could not query with " + sql);
+		}
 	}
 	
 	
