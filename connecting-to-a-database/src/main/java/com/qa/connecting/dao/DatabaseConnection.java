@@ -1,29 +1,33 @@
 package com.qa.connecting.dao;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class DatabaseConnection {
+public abstract class DatabaseConnection implements Connectable {
 
-	private String user;
-	private String password;
 	private Connection connection;
-
-	public DatabaseConnection(String user, String password) throws SQLException {
-		this.user = user;
+	private String username;
+	private String password;
+	
+	public DatabaseConnection(String username, String password) {
+		this.username = username;
 		this.password = password;
 		openConnection();
 	}
 	
-	private void openConnection() throws SQLException {
-		connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/ims", user, password);		
-	}
-
-	public void closeConnection() throws SQLException {
-		connection.close();
+	public abstract void openConnection();
+	
+	
+	public void closeConnection() {
+		// COme back for when exceptions are covered!
+		try {
+			connection.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public ResultSet sendQuery(String sql) throws SQLException {
@@ -38,5 +42,32 @@ public class DatabaseConnection {
 		statement.executeUpdate(sql);
 		statement.close();
 	}
+	
+	
 
+	public Connection getConnection() {
+		return connection;
+	}
+
+	public void setConnection(Connection connection) {
+		this.connection = connection;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	
+	
 }

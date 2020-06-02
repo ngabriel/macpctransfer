@@ -3,7 +3,8 @@ package com.qa.connecting;
 import java.sql.SQLException;
 
 import com.qa.connecting.dao.CustomerDao;
-import com.qa.connecting.dao.DatabaseConnection;
+import com.qa.connecting.dao.LocalDatabaseConnection;
+import com.qa.connecting.dao.ShaniConnection;
 import com.qa.connecting.model.Customer;
 import com.qa.connecting.utils.Input;
 
@@ -18,9 +19,8 @@ public class Ims {
 		System.out.println("Database password: ");
 		String password = input.getInput();
 
-		DatabaseConnection connection = new DatabaseConnection(user, password);
-
-		
+//		LocalDatabaseConnection connection = new LocalDatabaseConnection(user, password);
+		ShaniConnection connection = new ShaniConnection(user, password);
 		// Below needs to be similar to Garage project
 		// where different type of objects can be built and different inputs are required
 		// --------------------------
